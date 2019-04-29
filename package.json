@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-preserve-shebang",
+  "name": "@jaredpalmer/rollup-plugin-preserve-shebang",
   "version": "0.1.6",
   "description": "Automatically preserve a shebang in your entry file.",
   "main": "dist/index.js",

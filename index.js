@@ -20,15 +20,32 @@ export default function shebangPlugin({ shebang, entry } = {}) {
 			}
 			return options;
 		},
-		renderChunk(code, { format, sourcemap }) {
+		transform: function transform(code) {
+			if (!shebang) return;
+
+			const index = code.indexOf(shebang);
+
+			let str = new MagicString(code);
+
+			if (index > -1) {
+				str.remove(index, index + shebang.length);
+			}
+
+			return {
+				code: str.toString(),
+				map: str.generateMap({ hires: true })
+			};
+		},
+		renderChunk(code, _, { sourcemap }) {
 			if (!shebang) return;
 
 			let str = new MagicString(code);
 			str.prepend(shebang + '\n');
+
 			return {
 				code: str.toString(),
-				map: sourcemap ? str.generateMap({ hires: true }) : undefined,
+				map: sourcemap ? str.generateMap({ hires: true }) : undefined
 			};
-		},
+		}
 	};
 }

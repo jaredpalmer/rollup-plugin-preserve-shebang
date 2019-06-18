@@ -20,7 +20,7 @@ export default function shebangPlugin({ shebang, entry }={}) {
 			}
 			return options;
 		},
-		renderChunk(code, { format, sourcemap }) {
+		renderChunk(code, chunk, { sourcemap }) {
 			if (!shebang) return;
 
 			let str = new MagicString(code);
